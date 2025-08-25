@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Sorting Algorithms — C++ Logic, Links, and Interview Q&A</title>
+  <style>
+    :root{
+      --bg:#f8fafc;         /* white-ish */
+      --card:#ffffff;       /* pure white cards */
+      --text:#0f172a;       /* slate-900 */
+      --muted:#475569;      /* slate-600 */
+      --border:#e2e8f0;     /* slate-200 */
+      --accent:#0ea5e9;     /* sky-500 */
+      --accent-600:#0284c7; /* sky-600 */
+      --accent-50:#f0f9ff;  /* sky-50 */
+      --accent-100:#e0f2fe; /* sky-100 */
+      --chip:#e2e8f0;
+      --success:#16a34a;
+      --warn:#f59e0b;
+    }
+    *{box-sizing:border-box}
+    html,body{
+      margin:0;padding:0;background:var(--bg);color:var(--text);
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      line-height:1.55;
+    }
+    a{color:var(--accent-600);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:1000px;margin:0 auto;padding:0 16px}
+    header{
+      position:sticky;top:0;z-index:10;background:rgba(255,255,255,.85);
+      backdrop-filter:saturate(180%) blur(8px);
+      border-bottom:1px solid var(--border);
+    }
+    .header-inner{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;padding:14px 0}
+    .brand{display:flex;flex-direction:column;gap:2px}
+    .brand h1{font-size:22px;margin:0}
+    .brand p{margin:0;color:var(--muted);font-size:13px}
+    nav{display:flex;gap:12px;flex-wrap:wrap}
+    nav a{
+      display:inline-block;border:1px solid var(--border);background:var(--accent-50);
+      color:var(--accent-600);padding:6px 10px;border-radius:10px;font-size:14px
+    }
+    main{padding:18px 0 32px 0}
+    .grid{display:grid;gap:16px}
+    .card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:16px 16px 18px 16px;
+      box-shadow:0 6px 18px rgba(2,132,199,0.06);
+    }
+    .card h2{margin:0 0 6px 0;font-size:20px}
+    .card p{margin:6px 0 0 0;color:var(--muted)}
+    .links{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+    .link-btn{
+      display:inline-flex;align-items:center;gap:8px;
+      border:1px solid var(--border);background:var(--accent-100);
+      color:var(--accent-600);padding:8px 12px;border-radius:999px;font-weight:600;font-size:14px
+    }
+    .link-btn .dot{width:8px;height:8px;border-radius:50%;background:var(--accent)}
+    details{margin-top:10px}
+    summary{
+      cursor:pointer;user-select:none;
+      font-weight:600;color:var(--text);
+      padding:8px 10px;border-radius:10px;border:1px solid var(--border);background:#fff
+    }
+    pre{
+      margin:10px 0 0 0;background:#0b1224; /* dark for code contrast */
+      color:#e5e7eb;border-radius:12px;border:1px solid #0f172a;
+      padding:12px;overflow:auto
+    }
+    code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,Monaco,monospace}
+    .meta{margin-top:8px;font-size:13px;color:var(--muted)}
+    .badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+    .badge{
+      display:inline-block;padding:4px 8px;background:var(--chip);
+      border-radius:999px;font-size:12px;color:#0f172a;border:1px solid var(--border)
+    }
+    footer{
+      border-top:1px solid var(--border);padding:20px 0;margin-top:18px;color:var(--muted);font-size:14px
+    }
+    /* Section title styling */
+    .section-title{display:flex;flex-direction:column;gap:4px;margin:4px 0 2px 0}
+    .section-title small{color:var(--muted)}
+    /* Q&A list */
+    .qa{display:grid;gap:12px}
+    .q{
+      border-left:4px solid var(--accent);
+      background:#ffffff;border:1px solid var(--border);border-left-color:var(--accent);
+      padding:10px;border-radius:10px
+    }
+    .q h3{margin:0 0 6px 0;font-size:16px}
+    .q p{margin:0;color:#111827}
+    .light-blue{background:var(--accent-50);border:1px solid var(--border)}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap header-inner">
+      <div class="brand">
+        <h1>Sortique - Sorting Algorithm</h1>
+        <p>Featuring clear code snippets, curated learning links, and interview-ready explanations in a clean, single-page website</p>
+      </div>
+      <nav>
+        <a href="#bubble">Bubble</a>
+        <a href="#selection">Selection</a>
+        <a href="#insertion">Insertion</a>
+        <a href="#merge">Merge</a>
+        <a href="#quick">Quick</a>
+        <a href="#heap">Heap</a>
+        <a href="#qa">Interview Q&A</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="grid">
+
+      <!-- Bubble Sort -->
+      <section id="bubble" class="card light-blue">
+        <div class="section-title">
+          <h2>Bubble Sort (very basic sorting technique)</h2>
+          <small>Simple adjacent swaps; educational and easy to trace</small>
+        </div>
+
+        <div class="links">
+          <a class="link-btn" href="https://www.geeksforgeeks.org/problems/bubble-sort/1?itm_source=geeksforgeeks&itm_medium=Article&itm_campaign=bottom_sticky_on_Article" target="_blank" rel="noopener">
+            <span class="dot"></span> Coding Link
+          </a>
+          <a class="link-btn" href="https://www.geeksforgeeks.org/bubble-sort/" target="_blank" rel="noopener">
+            <span class="dot"></span> Best Tutorial link — click to view
+          </a>
+          <a class="link-btn" href="https://www.geeksforgeeks.org/bubble-sort-algorithm/" target="_blank" rel="noopener">
+            <span class="dot"></span> Article link — click to view
+          </a>
+        </div>
+
+        <details>
+          <summary>C++ Implementation</summary>
+<pre><code class="language-cpp">
+// Time: O(n^2) average/worst, Space: O(1)
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+void bubbleSort(vector&lt;int&gt;&amp; a) {
+    int n = (int)a.size();
+    bool swapped;
+    for (int i = 0; i &lt; n - 1; ++i) {
+        swapped = false;
+        for (int j = 0; j &lt; n - i - 1; ++j) {
+            if (a[j] &gt; a[j+1]) {
+                swap(a[j], a[j+1]);
+                swapped = true;
+            }
+        }
+        if (!swapped) break; // already sorted
+    }
+}
+
+int main() {
+    vector&lt;int&gt; a = {5, 1, 4, 2, 8};
+    bubbleSort(a);
+    for (int x : a) cout &lt;&lt; x &lt;&lt; " ";
+    return 0;
+}
+</code></pre>
+        </details>
+
+        <div class="badges">
+          <span class="badge">Stable: Yes</span>
+          <span class="badge">In-place: Yes</span>
+          <span class="badge">Best for nearly-sorted</span>
+        </div>
+      </section>
+
+      <!-- Selection Sort -->
+      <section id="selection" class="card">
+        <div class="section-title">
+          <h2>Selection Sort</h2>
+          <small>Find minimum and place at the start; fewer writes</small>
+        </div>
+
+        <div class="links">
+          <a class="link-btn" href="https://www.geeksforgeeks.org/problems/selection-sort/1?itm_source=geeksforgeeks&itm_medium=Article&itm_campaign=bottom_sticky_on_Article" target="_blank" rel="noopener">
+            <span class="dot"></span> Coding Link
+          </a>
+          <a class="link-btn" href="https://www.geeksforgeeks.org/selection-sort/" target="_blank" rel="noopener">
+            <span class="dot"></span> Best Tutorial link — click to view
+          </a>
+          <a class="link-btn" href="https://www.geeksforgeeks.org/selection-sort-algorithm/" target="_blank" rel="noopener">
+            <span class="dot"></span> Article link — click to view
+          </a>
+        </div>
+
+        <details>
+          <summary>C++ Implementation</summary>
+<pre><code class="language-cpp">
+// Time: O(n^2) always, Space: O(1)
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+void selectionSort(vector&lt;int&gt;&amp; a) {
+    int n = (int)a.size();
+    for (int i = 0; i &lt; n - 1; ++i) {
+        int minIdx = i;
+        for (int j = i + 1; j &lt; n; ++j) {
+            if (a[j] &lt; a[minIdx]) minIdx = j;
+        }
+        if (minIdx != i) swap(a[i], a[minIdx]);
+    }
+}
+
+int main() {
+    vector&lt;int&gt; a = {64, 25, 12, 22, 11};
+    selectionSort(a);
+    for (int x : a) cout &lt;&lt; x &lt;&lt; " ";
+    return 0;
+}
+</code></pre>
+        </details>
+
+        <div class="badges">
+          <span class="badge">Stable: No</span>
+          <span class="badge">In-place: Yes</span>
+          <span class="badge">Minimizes writes</span>
+        </div>
+      </section>
+
+      <!-- Insertion Sort -->
+      <section id="insertion" class="card">
+        <div class="section-title">
+          <h2>Insertion Sort</h2>
+          <small>Build sorted prefix; great on small/nearly-sorted data</small>
+        </div>
+
+        <div class="links">
+          <a class="link-btn" href="https://www.geeksforgeeks.org/problems/insertion-sort/1?itm_source=geeksforgeeks&itm_medium=Article&itm_campaign=bottom_sticky_on_Article" target="_blank" rel="noopener">
+            <span class="dot"></span> Coding Link
+          </a>
+          <a class="link-btn" href="https://www.geeksforgeeks.org/insertion-sort/" target="_blank" rel="noopener">
+            <span class="dot"></span> Best Tutorial link — click to view
+          </a>
+          <a class="link-btn" href="https://www.geeksforgeeks.org/insertion-sort-algorithm/" target="_blank" rel="noopener">
+            <span class="dot"></span> Article link — click to view
+          </a>
+        </div>
+
+        <details>
+          <summary>C++ Implementation</summary>
+<pre><code class="language-cpp">
+// Time: O(n^2) average/worst, O(n) best, Space: O(1)
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+void insertionSort(vector&lt;int&gt;&amp; a) {
+    for (int i = 1; i &lt; (int)a.size(); ++i) {
+        int key = a[i];
+        int j = i - 1;
+        while (j &gt;= 0 &amp;&amp; a[j] &gt; key) {
+            a[j+1] = a[j];
+            --j;
+        }
+        a[j+1] = key;
+    }
+}
+
+int main() {
+    vector&lt;int&gt; a = {12, 11, 13, 5, 6};
+    insertionSort(a);
+    for (int x : a) cout &lt;&lt; x &lt;&lt; " ";
+    return 0;
+}
+</code></pre>
+        </details>
+
+        <div class="badges">
+          <span class="badge">Stable: Yes</span>
+          <span class="badge">In-place: Yes</span>
+          <span class="badge">Tiny inputs champ</span>
+        </div>
+      </section>
+
+      <!-- Merge Sort -->
+      <section id="merge" class="card">
+        <div class="section-title">
+          <h2>Merge Sort</h2>
+          <small>Divide–conquer–merge; predictable O(n log n)</small>
+        </div>
+
+        <div class="links">
+          <a class="link-btn" href="https://www.geeksforgeeks.org/problems/merge-sort/1?itm_source=geeksforgeeks&itm_medium=Article&itm_campaign=bottom_sticky_on_Article" target="_blank" rel="noopener">
+            <span class="dot"></span> Coding Link
+          </a>
+          <a class="link-btn" href="https://www.geeksforgeeks.org/merge-sort/" target="_blank" rel="noopener">
+            <span class="dot"></span> Best Tutorial link — click to view
+          </a>
+          <a class="link-btn" href="https://www.geeksforgeeks.org/merge-sort-algorithm/" target="_blank" rel="noopener">
+            <span class="dot"></span> Article link — click to view
+          </a>
+        </div>
+
+        <details>
+          <summary>C++ Implementation</summary>
+<pre><code class="language-cpp">
+// Time: O(n log n) worst, Space: O(n)
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+void mergeVec(vector&lt;int&gt;&amp; a, int l, int m, int r) {
+    int n1 = m - l + 1, n2 = r - m;
+    vector&lt;int&gt; L(n1), R(n2);
+    for (int i = 0; i &lt; n1; ++i) L[i] = a[l + i];
+    for (int j = 0; j &lt; n2; ++j) R[j] = a[m + 1 + j];
+    int i = 0, j = 0, k = l;
+    while (i &lt; n1 &amp;&amp; j &lt; n2) {
+        if (L[i] &lt;= R[j]) a[k++] = L[i++];
+        else a[k++] = R[j++];
+    }
+    while (i &lt; n1) a[k++] = L[i++];
+    while (j &lt; n2) a[k++] = R[j++];
+}
+
+void mergeSort(vector&lt;int&gt;&amp; a, int l, int r) {
+    if (l &gt;= r) return;
+    int m = l + (r - l) / 2;
+    mergeSort(a, l, m);
+    mergeSort(a, m + 1, r);
+    mergeVec(a, l, m, r);
+}
+
+int main() {
+    vector&lt;int&gt; a = {12, 11, 13, 5, 6, 7};
+    mergeSort(a, 0, (int)a.size()-1);
+    for (int x : a) cout &lt;&lt; x &lt;&lt; " ";
+    return 0;
+}
+</code></pre>
+        </details>
+
+        <div class="badges">
+          <span class="badge">Stable: Yes</span>
+          <span class="badge">In-place: No</span>
+          <span class="badge">Guaranteed O(n log n)</span>
+        </div>
+      </section>
+
+      <!-- Quick Sort -->
+      <section id="quick" class="card">
+        <div class="section-title">
+          <h2>Quick Sort</h2>
+          <small>Average O(n log n); pick pivots well to avoid O(n²)</small>
+        </div>
+
+        <div class="links">
+          <a class="link-btn" href="https://www.geeksforgeeks.org/problems/quick-sort/1?itm_source=geeksforgeeks&itm_medium=Article&itm_campaign=bottom_sticky_on_Article" target="_blank" rel="noopener">
+            <span class="dot"></span> Coding Link
+          </a>
+          <a class="link-btn" href="https://www.geeksforgeeks.org/quick-sort/" target="_blank" rel="noopener">
+            <span class="dot"></span> Best Tutorial link — click to view
+          </a>
+          <a class="link-btn" href="https://www.geeksforgeeks.org/quick-sort-algorithm/" target="_blank" rel="noopener">
+            <span class="dot"></span> Article link — click to view
+          </a>
+        </div>
+
+        <details>
+          <summary>C++ Implementation</summary>
+<pre><code class="language-cpp">
+// Time: O(n log n) avg, O(n^2) worst; Space: O(log n)
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+int partitionHoare(vector&lt;int&gt;&amp; a, int l, int r) {
+    int pivot = a[l + (r - l)/2];
+    int i = l - 1, j = r + 1;
+    while (true) {
+        do { ++i; } while (a[i] &lt; pivot);
+        do { --j; } while (a[j] &gt; pivot);
+        if (i &gt;= j) return j;
+        swap(a[i], a[j]);
+    }
+}
+
+void quickSort(vector&lt;int&gt;&amp; a, int l, int r) {
+    if (l &lt; r) {
+        int p = partitionHoare(a, l, r);
+        quickSort(a, l, p);
+        quickSort(a, p + 1, r);
+    }
+}
+
+int main() {
+    vector&lt;int&gt; a = {10, 7, 8, 9, 1, 5};
+    quickSort(a, 0, (int)a.size() - 1);
+    for (int x : a) cout &lt;&lt; x &lt;&lt; " ";
+    return 0;
+}
+</code></pre>
+        </details>
+
+        <div class="badges">
+          <span class="badge">Stable: No</span>
+          <span class="badge">In-place: Yes</span>
+          <span class="badge">Fast in practice</span>
+        </div>
+      </section>
+
+      <!-- Heap Sort -->
+      <section id="heap" class="card">
+        <div class="section-title">
+          <h2>Heap Sort</h2>
+          <small>Max-heap + repeated extraction; O(1) extra memory</small>
+        </div>
+
+        <div class="links">
+          <a class="link-btn" href="https://www.geeksforgeeks.org/heap-sort/" target="_blank" rel="noopener">
+            <span class="dot"></span> Heap Sort | Practice | GeeksforGeeks
+          </a>
+          <a class="link-btn" href="https://www.geeksforgeeks.org/heap-sort/" target="_blank" rel="noopener">
+            <span class="dot"></span> Best Tutorial link — click to view
+          </a>
+          <a class="link-btn" href="https://www.geeksforgeeks.org/heap-sort-algorithm/" target="_blank" rel="noopener">
+            <span class="dot"></span> Article link — click to view
+          </a>
+        </div>
+
+        <details>
+          <summary>C++ Implementation</summary>
+<pre><code class="language-cpp">
+// Time: O(n log n), Space: O(1) extra
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+void heapify(vector&lt;int&gt;&amp; a, int n, int i) {
+    int largest = i;
+    int l = 2*i + 1, r = 2*i + 2;
+    if (l &lt; n &amp;&amp; a[l] &gt; a[largest]) largest = l;
+    if (r &lt; n &amp;&amp; a[r] &gt; a[largest]) largest = r;
+    if (largest != i) {
+        swap(a[i], a[largest]);
+        heapify(a, n, largest);
+    }
+}
+
+void heapSort(vector&lt;int&gt;&amp; a) {
+    int n = (int)a.size();
+    for (int i = n/2 - 1; i &gt;= 0; --i) heapify(a, n, i);
+    for (int i = n - 1; i &gt; 0; --i) {
+        swap(a, a[i]);
+        heapify(a, i, 0);
+    }
+}
+
+int main() {
+    vector&lt;int&gt; a = {12, 11, 13, 5, 6, 7};
+    heapSort(a);
+    for (int x : a) cout &lt;&lt; x &lt;&lt; " ";
+    return 0;
+}
+</code></pre>
+        </details>
+
+        <div class="badges">
+          <span class="badge">Stable: No</span>
+          <span class="badge">In-place: Yes</span>
+          <span class="badge">Guaranteed O(n log n)</span>
+        </div>
+      </section>
+
+      <!-- Interview Questions -->
+      <section id="qa" class="card light-blue">
+        <div class="section-title">
+          <h2>Commonly Asked Data Structure Interview Questions on Sorting</h2>
+        </div>
+        <p>Sorting is a fundamental concept in computer science and data structures, often tested in technical interviews. Sorting algorithms are essential for organizing data in a specific order, whether ascending or descending. Understanding various sorting techniques—like Quick Sort, Merge Sort, Bubble Sort, and Insertion Sort—helps solve many problems efficiently.</p>
+
+        <h3 style="margin:12px 0 8px 0;">Top Sorting Interview Questions and Problems</h3>
+        <div class="qa">
+          <div class="q">
+            <h3>1. What is Bubble Sort, and when would it be used?</h3>
+            <p>Bubble Sort repeatedly swaps adjacent elements if they are in the wrong order. It is simple but inefficient for large datasets with time complexity O(n²); useful mainly for teaching or tiny, nearly-sorted inputs.</p>
+          </div>
+          <div class="q">
+            <h3>2. Explain the concept of Selection Sort.</h3>
+            <p>Selection Sort finds the smallest (or largest) element in the unsorted region and swaps it with the first unsorted position. It performs O(n²) comparisons and is not stable in the standard form.</p>
+          </div>
+          <div class="q">
+            <h3>3. What makes Insertion Sort efficient for small datasets?</h3>
+            <p>Insertion Sort builds the final sorted list one element at a time and runs in O(n) on nearly-sorted data. It has O(n²) worst-case time but very low constant factors and is stable.</p>
+          </div>
+          <div class="q">
+            <h3>4. Difference between Merge Sort and Quick Sort?</h3>
+            <p>Merge Sort is stable and guarantees O(n log n) time with O(n) extra space. Quick Sort is typically faster in practice and in-place on average O(n log n), but can degrade to O(n²) on bad pivots.</p>
+          </div>
+          <div class="q">
+            <h3>5. What is the time complexity of Radix Sort?</h3>
+            <p>Radix Sort can run in O(nk), where n is the number of elements and k is the number of digits/bits per element, assuming counting by digits/buckets is linear.</p>
+          </div>
+          <div class="q">
+            <h3>6. Why is Quick Sort often faster than Merge Sort in practice?</h3>
+            <p>Quick Sort has good cache locality and typically uses less auxiliary memory by operating in-place, reducing overhead. With randomized or median-of-three pivots, it avoids many worst-case patterns.</p>
+          </div>
+          <div class="q">
+            <h3>7. When is it better to use Heap Sort?</h3>
+            <p>Heap Sort guarantees O(n log n) time and uses O(1) extra space, making it suitable when memory is constrained or worst-case guarantees are required.</p>
+          </div>
+          <div class="q">
+            <h3>8. How does Counting Sort work?</h3>
+            <p>Counting Sort counts occurrences of each key in a known small integer range, computes prefix sums to determine positions, and writes elements into the output in linear time.</p>
+          </div>
+          <div class="q">
+            <h3>9. What is a stable sorting algorithm? Example?</h3>
+            <p>A stable algorithm preserves the relative order of equal keys; for example, Merge Sort is stable when implemented with auxiliary arrays.</p>
+          </div>
+          <div class="q">
+            <h3>10. Worst case for Quick Sort and how to avoid?</h3>
+            <p>Worst case occurs when pivots are consistently min/max, giving O(n²). Use randomized pivot selection or median-of-three to reduce this risk.</p>
+          </div>
+          <div class="q">
+            <h3>11. Explain Bucket Sort and its application.</h3>
+            <p>Bucket Sort partitions input into buckets covering value ranges, sorts each bucket (often with insertion sort), then concatenates; effective for uniform distributions.</p>
+          </div>
+          <div class="q">
+            <h3>12. Can Quick Sort be used on linked lists?</h3>
+            <p>Yes, but pointer-based partitioning is required and Merge Sort is usually preferred for linked lists due to efficient splitting and merging without random access.</p>
+          </div>
+          <div class="q">
+            <h3>13. Significance of the Partition step in Quick Sort?</h3>
+            <p>Partition places the pivot in its final position and ensures left side contains smaller elements and right side larger ones, enabling divide-and-conquer.</p>
+          </div>
+          <div class="q">
+            <h3>14. What is K-way Merge Sort and when is it useful?</h3>
+            <p>K-way merge generalizes merge sort by merging K sorted lists at once; useful for external sorting and large datasets stored on disks.</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+</body>
+</html>
