@@ -1,21 +1,23 @@
-<h1 align="center"><b>⚡ Sortique – Interactive Sorting Visualizer</b></h1>
+<h1 align="center"><b>⚡ Sortique – Sorting Visualizer</b></h1>
 
-An interactive web-based sorting algorithm visualizer that helps learners understand how different sorting algorithms work step by step. Built with **HTML, CSS, and JavaScript**, Sortique brings sorting concepts to life with animations and an intuitive interface.  
+A simple and elegant **sorting visualizer** built using only **HTML** and **CSS**.  
+Sortique demonstrates sorting concepts through clean layouts and styling, making it easy to understand the process without any JavaScript.  
 
 🌐 **Live Demo**: [Sortique on GitHub Pages](https://sivasankaran189.github.io/sortique/)
 
 ---
 
 ✨ **Features**
-- 🎨 **Visual Animations** – Watch sorting algorithms run in real time.  
-- 🔢 **Multiple Algorithms** – Compare popular sorting techniques.  
-- ⏱ **Step-by-Step Process** – Follow each operation for better understanding.  
-- 📱 **Responsive Design** – Works across desktop and mobile.  
+- 🎨 **Pure HTML & CSS** – No JavaScript required.  
+- 🔢 **Sorting Representation** – Showcases how sorting can be represented visually.  
+- 📱 **Responsive Layout** – Works across desktop and mobile screens.  
+- ⚡ **Lightweight** – Fast loading, minimal setup.  
 
 ---
 
 🛠️ **Tech Stack**
-- **Frontend**: HTML, CSS, JavaScript  
+- **Markup**: HTML  
+- **Styling**: CSS  
 - **Deployment**: [GitHub Pages](https://pages.github.com/)  
 
 ---
